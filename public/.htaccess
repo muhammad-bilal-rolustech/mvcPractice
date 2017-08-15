@@ -1,0 +1,7 @@
+
+Options -MultiViews
+RewriteEngine On
+
+RewriteBase  /TestProject/mvc/public
+
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
