@@ -9,7 +9,7 @@
             return new $model();
 
         }
-        throw new  Esxception("Unknown Model");
+        throw new  Exception("Unknown Model");
 
      }
 

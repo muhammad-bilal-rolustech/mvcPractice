@@ -9,7 +9,7 @@
       $model = $modelfactory->makeModel($model);
        if (isset($model)) {
           // echo $model."in model <br>";
-           //require_once "../app/models/".$model.".php";
+          // require_once "../app/models/".$model.".php";
            return  $model;
        }else {
              echo "Not in ,model <br>";
@@ -30,6 +30,7 @@
 
 
    }
+
 
  }
  ?>

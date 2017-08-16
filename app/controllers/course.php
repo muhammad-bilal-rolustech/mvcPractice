@@ -5,46 +5,49 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
  class Course extends Controller
  {
    protected $Course ;
+    protected $dbal ;
+
    public function __construct()
    {
+      $this->dbal = new Dbal();
+      $obj = new ModelFactry();
+      //$this->Course = $this->model("Courses");
 
-      $this->Course = $this->model("Courses");
-      //   echo $this->std1->name." is called <br>";
+      $this->Course = $obj->makeModel('Courses');
+
+
    }
+
    public function index()
    {
 
        $this->view('course/index');
    }
+
    public function createCourse()
    {
-
-       Courses::create([
-          'c_id' => $_POST['c_id'] ,
-          'c_name' => $_POST['c_name'] ,
-          'c_dept'    => $_POST['c_dept']
-     ]);
+    //  $this->Course->createCourse();
+     $users = $this->dbal->InsertRecord("Courses");
      $this->view('course/createCourse');
    }
 
    public function showAllcourse()
    {
-      echo "inside <br>";
-      $users = Courses :: all();
-    //  $users = Capsule::table('Teachers')->get();
+      $users = $this->dbal->showAllRecord("Courses");
       $this->view('course/showAllCourse',$users);
+
+    //$this->modelc('Courses/showAllcourse');
+
    }
    public function updateCourse()
    {
-     $users =    Courses::where('c_id','=', $_POST['c_id'])
-                  ->update(['c_name' =>  $_POST['c_name'] , 'c_dept' =>  $_POST['c_dept']] );
-
-$this->view('course/updateCourse');
+     $this->dbal->updateRecord("Courses");
+    $this->view('course/updateCourse');
    }
    public function deleteCourse()
    {
 
-      $users =  Courses ::where('c_id',$_POST['c_id'])->delete();
+      $users =  $this->dbal->deleteRecord("Courses");
       $this->view('course/deleteCourse');
 
    }

@@ -4,12 +4,17 @@ error_reporting(E_ALL);echo "<br>";
 use Illuminate\Database\Capsule\Manager as Capsule ;
  class Student extends Controller
  {
-   protected $std1 ;
+   protected $std ;
+   protected $dbal ;
    public function __construct()
    {
 
-      $this->std1 = $this->model("std");
-      //   echo $this->std1->name." is called <br>";
+    //  $this->std1 = $this->model("std");
+      $this->dbal = new Dbal();
+      $obj = new ModelFactry();
+
+      $this->std = $obj->makeModel('std');
+
    }
    public function index()
    {
@@ -30,56 +35,35 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
    }
    public function createStudent()
    {
-      std::create([
-          'id' => $_POST['id'] ,
-          'name' => $_POST['name'] ,
-          'degree' => $_POST['degree'] ,
-          'address' =>$_POST['address']
-     ]);
+    //  $this->std->createStudent();
+    $users = $this->dbal->InsertRecord("std");
      $this->view('student/createStudent');
 
   }
 
    public function showAllStudent()
    {
-      echo "inside <br>";
-    //  dd(std::where('id','=' , 10)->first()->name);
-      //dd(std::find(20)->name);
-      $users = Capsule::table('stds')->get();
-
+      //$users =  $this->std->showAllStudent();
+      echo "echo here";
+      $users = $this->dbal->showAllRecord("std");
      $this->view('student/showAllStudent',$users);
 
    }
    public function updateStudent()
    {
-      $user =  std::find($_POST['id']);
-
-      if ($_POST['name']!= '') {
-        $user->name = $_POST['name'] ;
-
-
-      }
-      if ($_POST['degree'] != '') {
-          $user->degree = $_POST['degree'];
-
-      }
-      if ($_POST['address']  != '') {
-          $user->address = $_POST['address'] ;
-      }
-
-      $user->save();
+      $this->dbal->updateRecord("std");
       $this->view('student/updateStudent');
 
 
    }
    public function deleteStudent()
    {
-     $user =  std::find($_POST['id']);
+     $user =  $this->dbal->deleteRecord("std");
      if(!is_null($user))
      {
-       $user->delete();
+       $this->view('student/deleteStudent');
+
      }
-     $this->view('student/deleteStudent');
 
    }
 
