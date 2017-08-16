@@ -11,7 +11,31 @@ error_reporting(E_ALL);
 
    protected $fillable = ['c_id' , 'c_name' , 'c_dept'];
    public $timestamp = [];
-   public function InsertRecord()
+   public function crud($method)
+   {
+       $obj = new Dbal();
+       //$data = "";
+       //echo "this is model <br>";
+        if (strpos($method, 'show') !== false) {
+            //echo "this is inside model <br>";
+          $data =   $obj->showAllRecord(get_called_class(),$method);
+          return $data;
+        }
+        else if (strpos($method, 'create') !== false) {
+              $data =   $obj->InsertRecord(get_called_class(),$method);
+              return $data ;
+        }  else if (strpos($method, 'update') !== false) {
+                $data =   $obj->updateRecord(get_called_class(),$method);
+                return $data ;
+          }  else if (strpos($method, 'delete') !== false) {
+                  $data =   $obj->deleteRecord(get_called_class(),$method);
+                  return $data ;
+            }
+
+       //$data =  $obj->$method();
+
+   }
+   public function createCourse()
    {
 
        Courses::create([
@@ -22,7 +46,7 @@ error_reporting(E_ALL);
     // $this->view('course/createCourse');
    }
 
-   public function showAllRecord()
+   public function showAllCourse()
    {
       echo "inside <br>";
       $users = Courses :: all();
@@ -30,14 +54,14 @@ error_reporting(E_ALL);
     //  $users = Capsule::table('Teachers')->get();
       //$this->view('course/showAllCourse',$users);
    }
-   public function updateRecord()
+   public function updateCourse()
    {
      $users =    Courses::where('c_id','=', $_POST['c_id'])
                   ->update(['c_name' =>  $_POST['c_name'] , 'c_dept' =>  $_POST['c_dept']] );
       return $users;
     //$this->view('course/updateCourse');
    }
-   public function deleteRecord()
+   public function deleteCourse()
    {
 
       $users =  Courses ::where('c_id',$_POST['c_id'])->delete();

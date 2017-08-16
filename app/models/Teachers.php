@@ -12,8 +12,32 @@ error_reporting(E_ALL);
    protected $fillable = ['t_id' , 't_name' , 't_address','t_dept'];
    public $timestamp = [];
 
+   public function crud($method)
+   {
+       $obj = new Dbal();
+       //$data = "";
+       //echo "this is model <br>";
+        if (strpos($method, 'show') !== false) {
+            //echo "this is inside model <br>";
+          $data =   $obj->showAllRecord(get_called_class(),$method);
+          return $data;
+        }
+        else if (strpos($method, 'create') !== false) {
+              $data =   $obj->InsertRecord(get_called_class(),$method);
+              return $data ;
+        }  else if (strpos($method, 'update') !== false) {
+                $data =   $obj->updateRecord(get_called_class(),$method);
+                return $data ;
+          }  else if (strpos($method, 'delete') !== false) {
+                  $data =   $obj->deleteRecord(get_called_class(),$method);
+                  return $data ;
+            }
 
-   public function InsertRecord()
+       //$data =  $obj->$method();
+
+   }
+
+   public function createTeacher()
    {
 
       Teachers::create([
@@ -26,7 +50,7 @@ error_reporting(E_ALL);
 
    }
 
-   public function showAllRecord()
+   public function showAllTeacher()
    {
       echo "inside <br>";
       $users = Teachers :: all();
@@ -35,7 +59,7 @@ error_reporting(E_ALL);
   //  $this->view('teacher/showAllTeacher',$users);
 
    }
-   public function updateRecord()
+   public function updateTeacher()
    {
      $users =    Teachers::where('t_id','=', $_POST['t_id'])
                   ->update(['t_name' => $_POST['t_name'],'t_address' => $_POST['t_address'], 't_dept' =>  $_POST['t_dept']] );
@@ -44,7 +68,7 @@ error_reporting(E_ALL);
 
     //  $this-view('teacher/updateTeacher');
    }
-   public function deleteRecord()
+   public function deleteTeacher()
    {
 
       $user =  Teachers ::where('t_id', $_POST['t_id'])->delete();
