@@ -28,7 +28,7 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
      if (isset($_GET['url'])) {
 
        $url =  explode('/', filter_var(rtrim($_GET['url'], '/'),FILTER_SANITIZE_URL));
-
+           //echo "this is controller <br>";
            $data =  $this->std->crud($url[1]);
            $this->view($this->v."/".$url[1],$data);
 

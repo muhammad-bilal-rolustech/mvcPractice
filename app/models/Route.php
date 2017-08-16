@@ -11,7 +11,7 @@ error_reporting(E_ALL);
     protected $params = [] ;
      public function __construct()
      {
-       echo "echo is the case";
+      // echo "echo is the case";
         $url = $this->parseUrl();
 
         //++
@@ -28,15 +28,15 @@ error_reporting(E_ALL);
              $this->controller = new $this->controller ;
          }
          if (isset($url[1]) && $url[1] != 'index') {
-                 if(isset($_POST['submit'])){
+                /* if(isset($_POST['submit'])){
                      echo "submited <br>";
                   }
                   else {
                        echo "not submit";
-                  }
+                  }*/
             // if (method_exists($this->controller ,$url[1])) {
                 $this->method = 'crud';
-                echo "this is method  ".$this->method ."<br>";
+                //echo "this is method  ".$this->method ."<br>";
                  unset($url[1]);
             // }
          }

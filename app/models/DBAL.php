@@ -10,28 +10,28 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
         $this->obj = new ModelFactry();
 
       }
-      public function InsertRecord($model3)
+      public function InsertRecord($model3,$method3)
       {
              $this->model = $this->obj->makeModel($model3);
-              $this->model->InsertRecord();
+              $this->model->$method3();
 
       }
-      public function updateRecord($model1)
+      public function updateRecord($model1,$method1)
       {
          $this->model = $this->obj->makeModel($model1);
-          $this->model->updateRecord();
+          $this->model->$method1();
       }
 
-        public function showAllRecord($model2)
+        public function showAllRecord($model2 ,$method2)
         {
             $this->model = $this->obj->makeModel($model2);
-            $users = $this->model->showAllRecord();
+            $users = $this->model->$method2();
             return $users;
         }
-        public function deleteRecord($model4)
+        public function deleteRecord($model4,$method4)
         {
             $this->model = $this->obj->makeModel($model4);
-            $users = $this->model->deleteRecord();
+            $users = $this->model->$method4();
             return $users;
         }
         public function crud()
@@ -39,64 +39,10 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
           echo "Dbal";
         }
 
-        public function showAllStudent()
-        {
-             echo "inside is is <br>";
-         //  dd(std::where('id','=' , 10)->first()->name);
-           //dd(std::find(20)->name);
-           $users = Capsule::table('stds')->get();
-           return $users ;
-         // $this->view('student/showAllStudent',$users);
-
-        }
 
 
 
-        public function createStudent()
-        {
-          $data=  std::create([
-               'id' => $_POST['id'] ,
-               'name' => $_POST['name'] ,
-               'degree' => $_POST['degree'] ,
-               'address' =>$_POST['address']
-          ]);
-       //   $this->view('student/createStudent');
-            return $data;
-       }
-       public function updateStudent()
-       {
-          $user =  std::find($_POST['id']);
 
-          if ($_POST['name']!= '') {
-            $user->name = $_POST['name'] ;
-
-
-          }
-          if ($_POST['degree'] != '') {
-              $user->degree = $_POST['degree'];
-
-          }
-          if ($_POST['address']  != '') {
-              $user->address = $_POST['address'] ;
-          }
-
-          $user->save();
-        //  $this->view('student/updateStudent');
-           return $user;
-
-       }
-       public function deleteStudent()
-       {
-        // echo "in delete";
-         $user =  std::find($_POST['id']);
-         if(!is_null($user))
-         {
-           $user->delete();
-         }
-         return $user ;
-        // $this->view('student/deleteStudent');
-
-       }
 
   }
  ?>
