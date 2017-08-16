@@ -25,14 +25,22 @@ error_reporting(E_ALL);
          }
          else {
            require_once('../app/controllers/' .$this->controller . '.php');
-              $this->controller = new $this->controller ;
+             $this->controller = new $this->controller ;
          }
-         if (isset($url[1])) {
-             if (method_exists($this->controller ,$url[1])) {
-                 $this->method = $url[1];
+         if (isset($url[1]) && $url[1] != 'index') {
+                 if(isset($_POST['submit'])){
+                     echo "submited <br>";
+                  }
+                  else {
+                       echo "not submit";
+                  }
+            // if (method_exists($this->controller ,$url[1])) {
+                $this->method = 'crud';
+                echo "this is method  ".$this->method ."<br>";
                  unset($url[1]);
-             }
+            // }
          }
+
         //--
 
 

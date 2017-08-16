@@ -5,12 +5,14 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
  class Student extends Controller
  {
    protected $std ;
+   protected $v ;
    protected $dbal ;
    public function __construct()
    {
 
     //  $this->std1 = $this->model("std");
-      $this->dbal = new Dbal();
+      $this->v = 'student' ;
+    //  $this->dbal = new Dbal();
       $obj = new ModelFactry();
 
       $this->std = $obj->makeModel('std');
@@ -21,6 +23,19 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
       // echo $firstName. "   ss  ".$lastName . "<br>";
        $this->view('student/index');
    }
+   public function crud()
+   {
+     if (isset($_GET['url'])) {
+
+       $url =  explode('/', filter_var(rtrim($_GET['url'], '/'),FILTER_SANITIZE_URL));
+
+           $data =  $this->std->crud($url[1]);
+           $this->view($this->v."/".$url[1],$data);
+
+
+     }
+   }
+/*
    public function addStudent($id =0 , $name = '' ,$degree = '' , $address = '')
    {
 
@@ -44,9 +59,9 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
    public function showAllStudent()
    {
       //$users =  $this->std->showAllStudent();
-      echo "echo here";
-      $users = $this->dbal->showAllRecord("std");
-     $this->view('student/showAllStudent',$users);
+      echo "i am echo here";
+      //$users = $this->dbal->showAllRecord("std");
+      // $this->view('student/showAllStudent',$users);
 
    }
    public function updateStudent()
@@ -66,6 +81,8 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
      }
 
    }
+
+*/
 
  }
 

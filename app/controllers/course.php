@@ -10,10 +10,10 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
    public function __construct()
    {
       $this->dbal = new Dbal();
-      $obj = new ModelFactry();
+    //  $obj = new ModelFactry();
       //$this->Course = $this->model("Courses");
 
-      $this->Course = $obj->makeModel('Courses');
+    //  $this->Course = $obj->makeModel('Courses');
 
 
    }
@@ -23,12 +23,12 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
 
        $this->view('course/index');
    }
-
+  
    public function createCourse()
    {
     //  $this->Course->createCourse();
-     $users = $this->dbal->InsertRecord("Courses");
-     $this->view('course/createCourse');
+      $users = $this->dbal->InsertRecord("Courses");
+      $this->view('course/createCourse');
    }
 
    public function showAllcourse()
@@ -42,7 +42,7 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
    public function updateCourse()
    {
      $this->dbal->updateRecord("Courses");
-    $this->view('course/updateCourse');
+     $this->view('course/updateCourse');
    }
    public function deleteCourse()
    {

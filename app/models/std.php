@@ -16,7 +16,14 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
 
 
 
+   public function crud($method)
+   {
+       $obj = new Dbal();
+      $data =  $obj->$method();
+      return $data;
+   }
 
+  /*
    public function InsertRecord()
    {
       std::create([
@@ -29,13 +36,13 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
 
   }
 
-   public function showAllRecord()
+   public function showAllStudent()
    {
       echo "inside <br>";
     //  dd(std::where('id','=' , 10)->first()->name);
       //dd(std::find(20)->name);
-      $users = Capsule::table('stds')->get();
-      return $users ;
+    //  $users = Capsule::table('stds')->get();
+      //return $users ;
     // $this->view('student/showAllStudent',$users);
 
    }
@@ -74,5 +81,6 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
 
    }
 
+*/
  }
  ?>

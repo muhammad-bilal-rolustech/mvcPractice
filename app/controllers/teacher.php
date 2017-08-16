@@ -11,10 +11,9 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
 
     //  $this->teacher = $this->model("Teachers");
       $this->dbal = new Dbal();
-    $obj = new ModelFactry();
+    //  $obj = new ModelFactry();
     //$this->Course = $this->model("Courses");
-
-    $this->teacher = $obj->makeModel('Teachers');
+      //$this->teacher = $obj->makeModel('Teachers');
 
    }
    public function index()
