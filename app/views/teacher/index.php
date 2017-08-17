@@ -29,4 +29,11 @@ Delete Teacher
 
  <p><input type="submit" /></p>
 </form>
-<a href="../teacher/showAll">Show All Teachers</a><br><br>
+All Student of this Teacher<br><br>
+
+
+<form action="../teacher/showAll" method="post">
+ <p>Teacher    ID: <input type="text" name="id" /></p>
+
+ <p><input type="submit" /></p>
+</form>

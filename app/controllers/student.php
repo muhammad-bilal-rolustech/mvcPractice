@@ -2,87 +2,55 @@
 ini_set("display_errors" ,true);
 error_reporting(E_ALL);echo "<br>";
 use Illuminate\Database\Capsule\Manager as Capsule ;
+
+/**
+*Controller class for Student .
+*
+*/
  class Student extends Controller
  {
+   /**
+   *Class attribute to contain its Object .
+   *
+   */
    protected $std ;
+   /**
+   *Class attribute to contain its view info .
+   *
+   */
    protected $v ;
-   protected $dbal ;
+
+   /**
+   *Constructor method for Student .
+   *
+   */
    public function __construct()
    {
 
-    //  $this->std1 = $this->model("std");
       $this->v = 'student' ;
-    //  $this->dbal = new Dbal();
       $obj = new ModelFactry();
-
       $this->std = $obj->makeModel('std');
 
    }
-   public function index()
-   {
-      // echo $firstName. "   ss  ".$lastName . "<br>";
-       $this->view('student/index');
-   }
+   /**
+   *Mothod for incoming crud requests and render them to model
+   *recieves data from model and send it to the corresponding view.
+   *
+   */
    public function crud()
    {
      if (isset($_GET['url'])) {
 
-       $url =  explode('/', filter_var(rtrim($_GET['url'], '/'),FILTER_SANITIZE_URL));
-           //echo "this is controller <br>";
+           $url =  explode('/', filter_var(rtrim($_GET['url'], '/'),FILTER_SANITIZE_URL));
            $data =  $this->std->crud($url[1]);
            $this->view($this->v."/".$url[1],$data);
-
-
      }
-   }
-/*
-   public function addStudent($id =0 , $name = '' ,$degree = '' , $address = '')
-   {
-
-       $std1->name = $name ;
-       $std1->id = $id ;
-       $std1->degree = $degree ;
-       $std1->address = $address ;
-       echo $std1->id."br";
-       echo "in Student Controller <br>";
-
-       $this->view("student/addStudent",['name' => $std1->name] );
-   }
-   public function createStudent()
-   {
-    //  $this->std->createStudent();
-    $users = $this->dbal->InsertRecord("std");
-     $this->view('student/createStudent');
-
-  }
-
-   public function showAllStudent()
-   {
-      //$users =  $this->std->showAllStudent();
-      echo "i am echo here";
-      //$users = $this->dbal->showAllRecord("std");
-      // $this->view('student/showAllStudent',$users);
-
-   }
-   public function updateStudent()
-   {
-      $this->dbal->updateRecord("std");
-      $this->view('student/updateStudent');
-
-
-   }
-   public function deleteStudent()
-   {
-     $user =  $this->dbal->deleteRecord("std");
-     if(!is_null($user))
+     public function index()
      {
-       $this->view('student/deleteStudent');
-
+       $this->view('student/index');
      }
-
    }
 
-*/
 
  }
 

@@ -2,20 +2,40 @@
 
 ini_set("display_errors" ,true);
 error_reporting(E_ALL);
-use Illuminate\Database\Capsule\Manager as Capsule ;
+ use Illuminate\Database\Capsule\Manager as Capsule ;
 
  use Illuminate\Database\Eloquent\Model  as Eloquent ;
-
+ use app\models\Teachers as Teacher;
+ /**
+ *Model class for student .
+ *
+ */
  class std extends  Eloquent
  {
-
-
+   /**
+   *Class attribute to contain dbal Object .
+   *
+   */
+   private $obj;
+   /**
+   *Class attribute to contain fillable table columns .
+   *
+   */
    protected $fillable = ['id' , 'name' , 'degree' ,'address'];
+   /**
+   *Class attribute to contain rows creation and  updation time in database .
+   *
+   */
    public $timestamp = [];
 
 
 
-
+   /**
+   *Mothod for incoming crud requests and render them to dbal
+   *
+   *@param $method parameter to validate and call that method
+   *@return data after completion of crud opertion
+   */
    public function crud($method)
    {
        $obj = new Dbal();
@@ -27,139 +47,78 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
             return $data;
        }
 
-  /*
-        if (strpos($method, 'show') !== false) {
-            //echo "this is inside model <br>";
-          $data =   $obj->showAllRecord(get_called_class(),$method);
-          return $data;
-        }
-        else if (strpos($method, 'create') !== false) {
-              $data =   $obj->InsertRecord(get_called_class(),$method);
-              return $data ;
-        }  else if (strpos($method, 'update') !== false) {
-                $data =   $obj->updateRecord(get_called_class(),$method);
-                return $data ;
-          }  else if (strpos($method, 'delete') !== false) {
-                  $data =   $obj->deleteRecord(get_called_class(),$method);
-                  return $data ;
-            }
-*/
-       //$data =  $obj->$method();
-
    }
+
+   /**
+   *Mothod to pick all  of the data from  database
+   *
+   *@return $users paramaeter having all students info
+   */
    public function showAllStudent()
    {
-      //  echo "inside is is <br>";
-    //  dd(std::where('id','=' , 10)->first()->name);
-      //dd(std::find(20)->name);
-      $users = Capsule::table('stds')->get();
-      return $users ;
-    // $this->view('student/showAllStudent',$users);
+
+       $users = Capsule::table('stds')->get();
+       return $users ;
+
 
    }
-           public function createStudent()
-           {
-             $data=  std::create([
-                  'id' => $_POST['id'] ,
-                  'name' => $_POST['name'] ,
-                  'degree' => $_POST['degree'] ,
-                  'address' =>$_POST['address']
-             ]);
-          //   $this->view('student/createStudent');
-               return $data;
-          }
-          public function updateStudent()
-          {
-             $user =  std::find($_POST['id']);
+   /**
+   *Mothod to create new record
+   *
+   *@return $data this parameter tells that row is inserted or not
+   */
+   public function createStudent()
+   {
+       $data=  std::create([
+       'id' => $_POST['id'] ,
+       'name' => $_POST['name'] ,
+       'degree' => $_POST['degree'] ,
+       'address' =>$_POST['address']
+        ]);
 
-             if ($_POST['name']!= '') {
+        return $data;
+   }
+   /**
+   *Mothod to update   data of student in  database
+   *
+   *@return $user paramaeter tells that row is updated or not
+   */
+   public function updateStudent()
+   {
+        $user =  std::find($_POST['id']);
+
+        if ($_POST['name']!= '') {
                $user->name = $_POST['name'] ;
 
-
-             }
-             if ($_POST['degree'] != '') {
-                 $user->degree = $_POST['degree'];
-
-             }
-             if ($_POST['address']  != '') {
-                 $user->address = $_POST['address'] ;
-             }
-
-             $user->save();
-           //  $this->view('student/updateStudent');
-              return $user;
-
-          }
-          public function deleteStudent()
-          {
-           // echo "in delete";
-            $user =  std::find($_POST['id']);
-            if(!is_null($user))
-            {
-              $user->delete();
             }
-            return $user ;
-           // $this->view('student/deleteStudent');
+        if ($_POST['degree'] != '') {
+               $user->degree = $_POST['degree'];
 
-          }
-/*
-   public function InsertRecord()
-   {
-      std::create([
-          'id' => $_POST['id'] ,
-          'name' => $_POST['name'] ,
-          'degree' => $_POST['degree'] ,
-          'address' =>$_POST['address']
-     ]);
-  //   $this->view('student/createStudent');
+            }
+        if ($_POST['address']  != '') {
+               $user->address = $_POST['address'] ;
+            }
 
-  }
+               $user->save();
+               return $user;
 
-   public function showAllStudent()
-   {
-      echo "inside <br>";
-    //  dd(std::where('id','=' , 10)->first()->name);
-      //dd(std::find(20)->name);
-    //  $users = Capsule::table('stds')->get();
-      //return $users ;
-    // $this->view('student/showAllStudent',$users);
+    }
+    /**
+    *Mothod to delete  data of student in  database
+    *
+    *@return $user paramaeter tells that row is deleted  or not
+    */
+    public function deleteStudent()
+    {
 
-   }
-   public function updateRecord()
-   {
-      $user =  std::find($_POST['id']);
+        $user =  std::find($_POST['id']);
+        if(!is_null($user)){
+              $user->delete();
+           }
+              return $user ;
 
-      if ($_POST['name']!= '') {
-        $user->name = $_POST['name'] ;
+    }
 
-
-      }
-      if ($_POST['degree'] != '') {
-          $user->degree = $_POST['degree'];
-
-      }
-      if ($_POST['address']  != '') {
-          $user->address = $_POST['address'] ;
-      }
-
-      $user->save();
-    //  $this->view('student/updateStudent');
-
-
-   }
-   public function deleteRecord()
-   {
-     echo "in delete";
-     $user =  std::find($_POST['id']);
-     if(!is_null($user))
-     {
-       $user->delete();
-     }
-     return $user ;
-    // $this->view('student/deleteStudent');
-
-   }
-*/
 
  }
  ?>
