@@ -21,6 +21,13 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
        $obj = new Dbal();
        $data = "";
        //echo "this is model <br>";
+       if (method_exists(get_called_class(),$method)) {
+
+            $data = $obj->crud(get_called_class(),$method);
+            return $data;
+       }
+
+  /*
         if (strpos($method, 'show') !== false) {
             //echo "this is inside model <br>";
           $data =   $obj->showAllRecord(get_called_class(),$method);
@@ -36,7 +43,7 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
                   $data =   $obj->deleteRecord(get_called_class(),$method);
                   return $data ;
             }
-
+*/
        //$data =  $obj->$method();
 
    }

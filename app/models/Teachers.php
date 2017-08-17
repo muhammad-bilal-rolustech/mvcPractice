@@ -17,6 +17,12 @@ error_reporting(E_ALL);
        $obj = new Dbal();
        //$data = "";
        //echo "this is model <br>";
+        if (method_exists(get_called_class(),$method)) {
+             $data = $obj->crud(get_called_class(),$method);
+             return $data;
+        }
+
+ /*
         if (strpos($method, 'show') !== false) {
             //echo "this is inside model <br>";
           $data =   $obj->showAllRecord(get_called_class(),$method);
@@ -31,12 +37,24 @@ error_reporting(E_ALL);
           }  else if (strpos($method, 'delete') !== false) {
                   $data =   $obj->deleteRecord(get_called_class(),$method);
                   return $data ;
-            }
-
+            }else if (strpos($method, 'stds') !== false) {
+                    $data =   $obj->deleteRecord(get_called_class(),$method);
+                    return $data ;
+              }
+*/
        //$data =  $obj->$method();
 
    }
+   public function std()
+   {
+      return $this->belongsToMany('../app/models/std', 'std_teacher','teacher_id','std_id');
 
+   }
+   public function showAll()
+   {
+       $user = Teachers :: find(1)->stds();
+       return $user;
+   }
    public function createTeacher()
    {
 

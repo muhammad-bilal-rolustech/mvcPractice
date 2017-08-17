@@ -34,9 +34,11 @@ use Illuminate\Database\Capsule\Manager as Capsule ;
             $users = $this->model->$method4();
             return $users;
         }
-        public function crud()
+        public function crud($model4,$method4)
         {
-          echo "Dbal";
+          $this->model = $this->obj->makeModel($model4);
+          $users = $this->model->$method4();
+          return $users;
         }
 
 
